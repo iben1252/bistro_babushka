@@ -17,12 +17,10 @@
         }
 
         .menu button {
-            border-radius: 40%;
-            width: 9vw;
-            height: 4vw;
             font-size: 1.5vw;
-            font-family: fantasy;
+            font-family: futura, sans-serif;
             margin: 1.5rem;
+
         }
 
         .menu button:hover {
@@ -35,7 +33,6 @@
             padding: 10px;
             flex-wrap: wrap;
             background-color: #ffdaad;
-            border-radius: 5%;
             box-shadow: 7px 15px 15px 0 rgba(0, 0, 0, 0.4);
             font-family: helvetica, sans-serif;
         }
@@ -127,7 +124,7 @@
                         <div class="mad">
                             <h2>${mad.navn}</h2>
                             <div class="billede">
-                                <img src="${mad.billeder}" alt="${mad.navn}">
+                                <img src="images/small/${mad.billede}-sm.jpg">
                             </div>
                             <p>Kategori: ${mad.kategori}</p>
                             <p>Beskrivelse: ${mad.kort}</p>
