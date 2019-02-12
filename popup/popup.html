@@ -67,8 +67,31 @@
             background-color: #ffdaad;
         }
 
-        #addresse {
+        #popup {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: white;
+        }
 
+        #indhold {
+            box-sizing: border-box;
+            background-color: #ffdaad;
+            width: 50vw;
+            height: 70vh;
+            margin: auto;
+        }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            margin-right: 4vw;
+            padding-right: 1em;
+            font-family: futura, sans-serif;
+        }
+
+        #luk button {
+            font-size: 2em;
         }
     </style>
 </head>
@@ -76,6 +99,10 @@
 <body>
     <div class="overskrift">
         <h1>Bistro Babushka</h1>
+    </div>
+    <div id="popup">
+        <div id="luk"><button>X</button></div>
+        <div id="indhold"></div>
     </div>
     <header>
         <nav>
@@ -123,7 +150,7 @@
                 dest.innerHTML = "";
                 mad.forEach((mad) => {
                     if (filter == "alle" || filter == mad.kategori) {
-                        dest.innerHTML += `
+                        let template = `
                         <div class="mad">
                             <h2>${mad.navn}</h2>
                             <div class="billede">
@@ -133,9 +160,32 @@
                             <p><strong>Beskrivelse:</strong> ${mad.kort}</p>
                             <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
                         </div>`;
+                        dest.insertAdjacentHTML("beforeend", template);
+                        dest.lastElementChild.addEventListener("click", åbn);
+
+                        function åbn() {
+                            document.querySelector("#indhold").innerHTML = `
+                            <div class="mad">
+                                <h2>${mad.navn}</h2>
+                                <div class="billede">
+                                    <img src="small/${mad.billede}-sm.jpg">
+                                </div>
+                                <p><strong>Kategori:</strong> ${mad.kategori}</p>
+                                <p><strong>Oprindelse:</strong>${mad.oprindelse}</p>
+                                <p><strong>Beskrivelse:</strong> ${mad.lang}</p>
+                                <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
+                            </div>
+                            `;
+                            document.querySelector("#popup").style.display="block";
+
+                        }
                     }
                 })
             }
+
+            document.querySelector("#luk button").addEventListener("click", ()=>{
+                document.querySelector("popup").style.display="none";
+            })
 
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.addEventListener("click", filtrering);
@@ -157,7 +207,7 @@
 </body>
 
 <footer>
-<!--
+    <!--
     <div class="footer">
         <div id="addresse">
             Addresse:<br>

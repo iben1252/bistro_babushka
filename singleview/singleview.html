@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+    <style>
+        .overskrift {
+            text-align: center;
+            padding: 1vw;
+            font-family: fantasy;
+        }
+
+        .menu {
+            text-align: center;
+        }
+
+        .menu button {
+            font-size: 1.5vw;
+            font-family: futura, sans-serif;
+            margin: 1.5rem;
+
+        }
+
+        .menu button:hover {
+            background-color: #ffdaad;
+        }
+
+        .mad {
+            border: 1px black;
+            margin: 10px;
+            padding: 10px;
+            flex-wrap: wrap;
+            background-color: #ffdaad;
+            box-shadow: 7px 15px 15px 0 rgba(0, 0, 0, 0.4);
+            font-family: helvetica, sans-serif;
+        }
+
+        .billede img {
+            max-width: 100%;
+        }
+
+        .billede {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: fantasy;
+        }
+
+        #liste {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        h1 {
+            font-family: fantasy;
+        }
+
+        p {
+            font-family: futura, sans-serif;
+        }
+
+        .valgt {
+            background-color: #ffdaad;
+        }
+
+        #popup {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: white;
+        }
+
+        #indhold {
+            box-sizing: border-box;
+            background-color: #ffdaad;
+            width: 50vw;
+            height: 70vh;
+            margin: auto;
+        }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            margin-right: 4vw;
+            padding-right: 1em;
+            font-family: futura, sans-serif;
+        }
+
+        #luk button {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overskrift">
+        <h1>Bistro Babushka</h1>
+    </div>
+    <div id="popup">
+        <div id="luk"><button>X</button></div>
+        <div id="indhold"></div>
+    </div>
+    <header>
+        <nav>
+            <div class="menu">
+                <button class="filter" data-hold="alle">Alle</button>
+                <button class="filter" data-hold="forretter">Forretter</button>
+                <button class="filter" data-hold="hovedretter">Hovedretter</button>
+                <button class="filter" data-hold="desserter">Desserter</button>
+                <button class="filter" data-hold="drikkevarer">Drikkevarer</button>
+                <button class="filter" data-hold="sideorders">Sideorders</button>
+            </div>
+
+        </nav>
+    </header>
+
+    <main>
+        <div class="mini_overskrift">
+            <h2></h2>
+        </div>
+        <div id="liste"></div>
+
+    </main>
+
+
+    <script>
+        let mad = [];
+        let filter = "alle";
+
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            let dest = document.querySelector("#liste");
+
+            async function getJson() {
+                let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
+                mad = await jsonData.json();
+                mad.sort((a, b) => {
+                    return a.navn.localeCompare(b.navn)
+                });
+                visMad();
+            }
+
+            function visMad() {
+                dest.innerHTML = "";
+                mad.forEach((mad) => {
+                    if (filter == "alle" || filter == mad.kategori) {
+                        dest.innerHTML += `
+                        <div class="mad">
+                            <h2>${mad.navn}</h2>
+                            <div class="billede">
+                                <img src="small/${mad.billede}-sm.jpg">
+                            </div>
+                            <p><strong>Kategori:</strong> ${mad.kategori}</p>
+                            <p><strong>Beskrivelse:</strong> ${mad.kort}</p>
+                            <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
+                        </div>`;
+                    }
+                })
+            }
+
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+
+            function filtrering() {
+                filter = this.getAttribute("data-hold");
+                document.querySelector("h2").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visMad();
+            }
+            getJson();
+        }
+    </script>
+
+</body>
+
+<footer>
+    <!--
+    <div class="footer">
+        <div id="addresse">
+            Addresse:<br>
+            Grøønegade 97<br>
+            1234 København K
+        </div>
+        <div id="åbningstider">
+            Åbningstider:<br>
+            Mandag - Fredag: 10:30 - 22:00<br>
+            Lørdag: 12:00 - 23:00
+        </div>
+    </div>
+-->
+
+</footer>
+
+</html>
