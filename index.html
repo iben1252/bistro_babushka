@@ -60,6 +60,10 @@
             font-family: fantasy;
         }
 
+        p {
+            font-family: futura, sans-serif;
+        }
+
         .valgt {
             background-color: #ffdaad;
         }
@@ -124,11 +128,11 @@
                         <div class="mad">
                             <h2>${mad.navn}</h2>
                             <div class="billede">
-                                <img src="images/small/${mad.billede}-sm.jpg">
+                                <img src="small/${mad.billede}-sm.jpg">
                             </div>
-                            <p>Kategori: ${mad.kategori}</p>
-                            <p>Beskrivelse: ${mad.kort}</p>
-                            <p>Pris: ${mad.pris}</p>
+                            <p><strong>Kategori:</strong> ${mad.kategori}</p>
+                            <p><strong>Beskrivelse:</strong> ${mad.kort}</p>
+                            <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
                         </div>`;
                     }
                 })
