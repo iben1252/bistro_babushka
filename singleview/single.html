@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+    <style>
+        .overskrift {
+            text-align: center;
+            padding: 1vw;
+            font-family: fantasy;
+        }
+
+        .mad {
+            border: 1px black;
+            margin: 10px;
+            padding: 10px;
+            flex-wrap: wrap;
+            background-color: #ffdaad;
+            box-shadow: 7px 15px 15px 0 rgba(0, 0, 0, 0.4);
+            font-family: helvetica, sans-serif;
+        }
+
+        .billede img {
+            max-width: 100%;
+        }
+
+        .billede {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: fantasy;
+        }
+
+
+        h1 {
+            font-family: fantasy;
+        }
+
+        p {
+            font-family: futura, sans-serif;
+        }
+
+        #singleview {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: white;
+        }
+
+        #indhold {
+            box-sizing: border-box;
+            width: 50vw;
+            height: 70vh;
+            margin: auto;
+        }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            margin-right: 24vw;
+            padding-right: 1em;
+            font-family: futura, sans-serif;
+        }
+
+        #luk button {
+            font-size: 2em;
+            box-shadow: 7px 4px 15px 0 rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overskrift">
+        <h1>Bistro Babushka</h1>
+    </div>
+    <div id="singleview">
+        <div id="luk"><button>X</button></div>
+        <div id="indhold"></div>
+    </div>
+
+    <main>
+        <div class="mini_overskrift">
+            <h2></h2>
+        </div>
+    </main>
+
+
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let lang = urlParams.get("lang");
+
+        let alleMad;
+        let mad;
+
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+
+            async function getJson() {
+                let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
+                alleMad = await jsonData.json();
+                alleMad.forEach(obj => {
+                    if (obj.lang == lang) {
+                        mad = obj;
+                    }
+                })
+                åbn();
+            }
+
+            function åbn() {
+                document.querySelector("#indhold").innerHTML = `
+                            <div class="mad">
+                                <h2>${mad.navn}</h2>
+                                <div class="billede">
+                                    <img src="mad_small/${mad.billede}-sm.jpg">
+                                </div>
+                                <p><strong>Kategori:</strong> ${mad.kategori}</p>
+                                <p><strong>Oprindelse:</strong>${mad.oprindelse}</p>
+                                <p><strong>Beskrivelse:</strong> ${mad.lang}</p>
+                                <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
+                            </div>
+                            `;
+            }
+
+            document.querySelector("#luk button").addEventListener("click", () => {
+                location.href = "index.html";
+            })
+
+            getJson();
+        }
+    </script>
+
+</body>
+
+<footer>
+    <!--
+    <div class="footer">
+        <div id="addresse">
+            Addresse:<br>
+            Grøønegade 97<br>
+            1234 København K
+        </div>
+        <div id="åbningstider">
+            Åbningstider:<br>
+            Mandag - Fredag: 10:30 - 22:00<br>
+            Lørdag: 12:00 - 23:00
+        </div>
+    </div>
+-->
+
+</footer>
+
+</html>
