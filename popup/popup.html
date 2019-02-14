@@ -71,7 +71,6 @@
             width: 100vw;
             height: 100vh;
             position: fixed;
-            background-color: white;
             display: none;
         }
 
@@ -92,9 +91,19 @@
 
         #luk button {
             font-size: 2em;
-             box-shadow: 7px 4px 15px 0 rgba(0, 0, 0, 0.4);
+            box-shadow: 7px 4px 15px 0 rgba(0, 0, 0, 0.4);
         }
 
+        .tomt {
+            height: 100vh;
+            width: 100vw;
+            background-color: white;
+            opacity: 0.5;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+        }
     </style>
 </head>
 
@@ -102,6 +111,7 @@
     <div class="overskrift">
         <h1>Bistro Babushka</h1>
     </div>
+    <div class="tomt"></div>
     <div id="popup">
         <div id="luk"><button>X</button></div>
         <div id="indhold"></div>
@@ -175,10 +185,11 @@
                                 <p><strong>Kategori:</strong> ${mad.kategori}</p>
                                 <p><strong>Oprindelse:</strong>${mad.oprindelse}</p>
                                 <p><strong>Beskrivelse:</strong> ${mad.lang}</p>
-                                <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
+                                <p><strong>Pris:</strong> ${mad.pris},00 DKK</p>
                             </div>
                             `;
                             document.querySelector("#popup").style.display = "block";
+                            document.querySelector(".tomt").style.display = "block";
 
                         }
                     }
@@ -186,8 +197,10 @@
             }
 
             document.querySelector("#luk button").addEventListener("click", () => {
-                document.querySelector("popup").style.display = "none";
+                document.querySelector("#popup").style.display = "none";
+                document.querySelector(".tomt").style.display = "none";
             })
+
 
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.addEventListener("click", filtrering);
@@ -203,13 +216,8 @@
                 visMad();
             }
 
-            document.querySelector("#luk button").addEventListener("click", () => {
-                location.href = "popup.html";
-            })
-
             getJson();
         }
-
     </script>
 
 </body>
