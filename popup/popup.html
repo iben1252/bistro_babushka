@@ -94,6 +94,7 @@
         #luk button {
             font-size: 2em;
         }
+
     </style>
 </head>
 
@@ -151,7 +152,7 @@
                 dest.innerHTML = "";
                 mad.forEach((mad) => {
                     if (filter == "alle" || filter == mad.kategori) {
-                        let template= `
+                        let template = `
                         <div class="mad">
                             <h2>${mad.navn}</h2>
                             <div class="billede">
@@ -177,15 +178,15 @@
                                 <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
                             </div>
                             `;
-                            document.querySelector("#popup").style.display="block";
+                            document.querySelector("#popup").style.display = "block";
 
                         }
                     }
                 })
             }
 
-            document.querySelector("#luk button").addEventListener("click", ()=>{
-                document.querySelector("popup").style.display="none";
+            document.querySelector("#luk button").addEventListener("click", () => {
+                document.querySelector("popup").style.display = "none";
             })
 
             document.querySelectorAll(".filter").forEach(elm => {
@@ -201,8 +202,14 @@
                 this.classList.add("valgt");
                 visMad();
             }
+
+            document.querySelector("#luk button").addEventListener("click", () => {
+                location.href = "popup.html";
+            })
+
             getJson();
         }
+
     </script>
 
 </body>
