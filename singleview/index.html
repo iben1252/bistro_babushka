@@ -92,9 +92,20 @@
 
         #luk button {
             font-size: 2em;
-             box-shadow: 7px 4px 15px 0 rgba(0, 0, 0, 0.4);
+            box-shadow: 7px 4px 15px 0 rgba(0, 0, 0, 0.4);
         }
 
+         footer {
+            height: 10vw;
+            width: auto;
+            position: static;
+            display: flex;
+        }
+
+        #boks {
+            flex-wrap: wrap;
+            margin: 2vw;
+        }
     </style>
 </head>
 
@@ -128,6 +139,22 @@
 
     </main>
 
+
+    <footer>
+
+        <div id="boks">
+            <p><em>ADRESSE:</em></p>
+            <P>Grøngade 97<br>
+                1234 København K</P>
+        </div>
+        <div id="boks">
+            <p><em>Åbningstider</em></p>
+            <p>Mandag - Fredag: 10:30 - 22:00<br>
+                Lørdag: 12:00 -23:00</p>
+        </div>
+
+
+    </footer>
 
     <script>
         let mad = [];
@@ -163,8 +190,8 @@
                             <p><strong>Pris:</strong> ${mad.pris},00 DDK</p>
                         </div>`;
                         dest.insertAdjacentHTML("beforeend", template);
-                        dest.lastElementChild.addEventListener("click", ()=>{
-                            location.href="single.html?lang=" + mad.lang;
+                        dest.lastElementChild.addEventListener("click", () => {
+                            location.href = "single.html?lang=" + mad.lang;
                         });
 
                         function åbn() {
@@ -212,26 +239,10 @@
             getJson();
         }
 
+
     </script>
 
 </body>
 
-<footer>
-    <!--
-    <div class="footer">
-        <div id="addresse">
-            Addresse:<br>
-            Grøønegade 97<br>
-            1234 København K
-        </div>
-        <div id="åbningstider">
-            Åbningstider:<br>
-            Mandag - Fredag: 10:30 - 22:00<br>
-            Lørdag: 12:00 - 23:00
-        </div>
-    </div>
--->
-
-</footer>
 
 </html>
